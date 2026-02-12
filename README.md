@@ -1,11 +1,11 @@
 # Dodge Truck Notifier Discord Bot
 
-A Discord bot that monitors salvage yard websites for 1994-2025 Dodge Trucks and sends notifications to a Discord channel when new listings are found.
+A Discord bot that monitors salvage yard websites for 1994-2026 Dodge Trucks and sends notifications to a Discord channel when new listings are found.
 
 ## Features
 
 - 🔍 **Automated Monitoring**: Periodically checks multiple salvage yard websites
-- 🎯 **Smart Filtering**: Only tracks Dodge trucks from 1994-2025 in Calgary and Edmonton
+- 🎯 **Smart Filtering**: Only tracks Dodge trucks from 1994-2026 in Calgary and Edmonton
 - 📊 **Persistent Storage**: Uses SQLite database to prevent duplicate notifications
 - 🚀 **Easy Deployment**: Deploy for free on Railway.app, Render.com, or Fly.io
 - 🛡️ **Robust Error Handling**: Graceful handling of website downtime and errors
@@ -321,7 +321,7 @@ sqlite3 listings.db "SELECT * FROM listings ORDER BY first_seen DESC LIMIT 10;"
 - **Rate Limiting**: 3-5 second delays between requests to avoid overloading websites
 - **User-Agent**: Bot identifies itself properly in HTTP headers
 - **Target Locations**: Only Calgary and Edmonton are monitored
-- **Year Range**: Only 1994-2025 vehicles are tracked
+- **Year Range**: Only 1994-2026 vehicles are tracked
 - **Persistent Storage**: Database survives bot restarts
 
 ## Contributing
