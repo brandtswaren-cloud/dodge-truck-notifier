@@ -36,7 +36,7 @@ class Config:
     TARGET_MAKE: str = "Dodge"
     TARGET_MODELS: list = ["RAM", "Dakota", "Truck"]
     YEAR_MIN: int = 1994
-    YEAR_MAX: int = 2026
+    YEAR_MAX: int = 2025
     TARGET_LOCATIONS: list = ["Calgary", "Edmonton"]
     
     # User-Agent for web scraping
