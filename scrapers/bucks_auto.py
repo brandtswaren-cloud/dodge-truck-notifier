@@ -128,15 +128,15 @@ class BucksAutoScraper(BaseScraper):
                             
                             # Extract model
                             model = "Ram"
-                            model_match = re.search(r'ram\s*(\d{4})?', row_text, re.IGNORECASE)
-                            if model_match:
-                                if model_match.group(1):
+                            # First try to find specific Ram model numbers (1500, 2500, 3500)
+                            ram_number = re.search(r'\b(1500|2500|3500)\b', row_text)
+                            if ram_number:
+                                model = f"Ram {ram_number.group(1)}"
+                            else:
+                                # Look for "Ram" followed by 4 digits (but not a year we already extracted)
+                                model_match = re.search(r'ram\s+(\d{4})', row_text, re.IGNORECASE)
+                                if model_match and int(model_match.group(1)) not in range(1900, 2100):
                                     model = f"Ram {model_match.group(1)}"
-                                else:
-                                    # Try to find model number separately
-                                    ram_number = re.search(r'\b(1500|2500|3500)\b', row_text)
-                                    if ram_number:
-                                        model = f"Ram {ram_number.group(1)}"
                             
                             # Try to extract color if available
                             color = None
@@ -170,11 +170,8 @@ class BucksAutoScraper(BaseScraper):
                                 "vin": None,
                                 "arrival_date": arrival_date,
                                 "url": location_url,
+                                "notes": f"Color: {color}" if color else None,
                             }
-                            
-                            # Add color as notes if available
-                            if color:
-                                listing["notes"] = f"Color: {color}"
                             
                             if self.is_valid_listing(listing):
                                 listings.append(listing)

@@ -75,7 +75,13 @@ class PickNPullScraper(BaseScraper):
                         year_elem = row.find(class_=lambda x: x and 'year' in str(x).lower())
                         if not year_elem:
                             year_elem = row.find('span', text=lambda t: t and t.strip().isdigit() and len(t.strip()) == 4)
-                        year = parse_year(year_elem.text.strip()) if year_elem else None
+                        
+                        year = None
+                        if year_elem:
+                            potential_year = parse_year(year_elem.text.strip())
+                            # Validate year is in reasonable range
+                            if potential_year and 1900 <= potential_year <= 2100:
+                                year = potential_year
                         
                         # Try to find make
                         make_elem = row.find(class_=lambda x: x and 'make' in str(x).lower())

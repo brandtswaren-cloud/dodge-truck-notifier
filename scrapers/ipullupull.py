@@ -110,15 +110,15 @@ class IPullUPullScraper(BaseScraper):
                     
                     # Extract model - try to find Ram with numbers
                     model = "Ram"
-                    model_match = re.search(r'ram\s*(\d{4})?', card_text, re.IGNORECASE)
-                    if model_match:
-                        if model_match.group(1):
+                    # First try to find specific Ram model numbers (1500, 2500, 3500)
+                    ram_number = re.search(r'\b(1500|2500|3500)\b', card_text)
+                    if ram_number:
+                        model = f"Ram {ram_number.group(1)}"
+                    else:
+                        # Look for "Ram" followed by 4 digits (but not a year)
+                        model_match = re.search(r'ram\s+(\d{4})', card_text, re.IGNORECASE)
+                        if model_match and model_match.group(1) not in year_patterns:
                             model = f"Ram {model_match.group(1)}"
-                        else:
-                            # Try to find model number separately
-                            ram_number = re.search(r'\b(1500|2500|3500)\b', card_text)
-                            if ram_number:
-                                model = f"Ram {ram_number.group(1)}"
                     
                     # Extract VIN
                     vin = None
